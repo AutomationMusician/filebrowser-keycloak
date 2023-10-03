@@ -24,5 +24,17 @@ services:
     volumes:
       - './filebrowser-realm.json:/opt/bitnami/keycloak/data/import/filebrowser-realm.json'
 
+  filebrowser:
+    image: docker.io/filebrowser/filebrowser:v2.25.0
+    # user: $UID:$GID # Set these values beforehand
+    volumes:
+      - ./data:/srv
+      - ./filebrowser.db:/database/filebrowser.db
+      - ./.filebrowser.json:/.filebrowser.json
+    ports:
+      - 80:8080
+    # command: "/filebrowser config set --auth.method=noauth && /filebrowser"
+    
+
 volumes:
   postgresql_data:
