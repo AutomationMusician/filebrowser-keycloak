@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  postgresql:
+    image: docker.io/bitnami/postgresql:16.0.0
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - 'postgresql_data:/bitnami/postgresql'
+  
+  keycloak:
+    image: docker.io/bitnami/keycloak:22.0.3
+    ports:
+      - "8081:8080"
+    environment:
+      - KEYCLOAK_CREATE_ADMIN_USER=true
+      - KEYCLOAK_DATABASE_USER=postgres
+      - KEYCLOAK_DATABASE_NAME=postgres
+      - KEYCLOAK_ADMIN_USER=admin
+      - KEYCLOAK_ADMIN_PASSWORD=password
+      - KEYCLOAK_EXTRA_ARGS="--import-realm"
+    depends_on:
+      - postgresql
+    volumes:
+      - './filebrowser-realm.json:/opt/bitnami/keycloak/data/import/filebrowser-realm.json'
+
+volumes:
+  postgresql_data:
