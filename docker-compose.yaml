@@ -34,6 +34,11 @@ services:
     ports:
       - 80:8080
     # command: "/filebrowser config set --auth.method=noauth && /filebrowser"
+
+
+    # TODO: add oauth2-proxy to connect keycloak and filebrowser https://oauth2-proxy.github.io/oauth2-proxy/configuration/providers/keycloak/
+    # Or look at this solution: https://github.com/adyanth/portable-oidc/tree/main?tab=readme-ov-file
+    #     Source: https://github.com/filebrowser/filebrowser/issues/1521
     
 
 volumes:
